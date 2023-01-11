@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import { reducerLogger } from '../reducers/reducer-logger.js';
 import {
   initialState,
   reducer,
@@ -10,7 +11,7 @@ export const Context = createContext({
 });
 
 export const ShoppingListProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState());
+  const [state, dispatch] = useReducer(reducerLogger(reducer), initialState());
   const contextObj = { state, dispatch };
   return (
     <Context.Provider value={contextObj}>
