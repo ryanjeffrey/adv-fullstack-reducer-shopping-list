@@ -23,6 +23,20 @@ export const reducer = (state, action) => {
         ...state,
         shoppingListCandidateQuantity: action.quantity,
       };
+    case 'shopping-list-item-bought-changed': {
+      const shoppingList = [...state.shoppingList];
+      const index = shoppingList.findIndex(
+        (item) => item.id === action.itemId
+      );
+      shoppingList[index] = {
+        ...shoppingList[index],
+        bought: action.bought,
+      };
+      return {
+        ...state,
+        shoppingList,
+      };
+    }
     default:
       return state;
   }
