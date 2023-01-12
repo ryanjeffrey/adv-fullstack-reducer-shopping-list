@@ -1,11 +1,16 @@
 import ShoppingListItems from '../ShoppingList/ShoppingListItems';
 import { useContext, useEffect } from 'react';
 import { Context } from '../ShoppingListProvider.jsx';
-import { createShoppingListItem, updateShoppingItem } from '../../services/shopping-list-items';
+import { 
+  createShoppingListItem, 
+  deleteShoppingItem, 
+  updateShoppingItem 
+} from '../../services/shopping-list-items';
 import {
   shoppingListCandidateItemChanged,
   shoppingListCandidateQuantityChanged,
   shoppingListItemBoughtChanged,
+  shoppingListItemDeleted,
 } from '../../actions/shopping-list-actions.js';
 import ShoppingListItemForm from '../ShoppingList/ShoppingListItemForm';
 import { 
@@ -25,6 +30,9 @@ export default function ShoppingListPage() {
   };
   const dispatchBoughtChanged = (itemId, bought) => {
     dispatch(shoppingListItemBoughtChanged(itemId, bought));
+  };
+  const dispatchItemDeleted = (itemId) => {
+    dispatch(shoppingListItemDeleted(itemId));
   };
   return (
     <section>
@@ -47,6 +55,11 @@ export default function ShoppingListPage() {
           await updateShoppingItem(itemId, bought);
           dispatchBoughtChanged(itemId, bought);
         }}
+        handleItemDeleteByItemId={async (itemId) => {
+          await deleteShoppingItem(itemId);
+          dispatchItemDeleted(itemId);
+          getShoppingListItemsEffect(dispatch);
+        }}  
       />
     </section>
   );
