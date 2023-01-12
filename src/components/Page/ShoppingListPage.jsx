@@ -1,12 +1,11 @@
 import ShoppingListItems from '../ShoppingList/ShoppingListItems';
 import { useContext, useEffect } from 'react';
 import { Context } from '../ShoppingListProvider.jsx';
-import {
-  createShoppingListItem,
-} from '../../services/shopping-list-items';
+import { createShoppingListItem, updateShoppingItem } from '../../services/shopping-list-items';
 import {
   shoppingListCandidateItemChanged,
-  shoppingListCandidateQuantityChanged
+  shoppingListCandidateQuantityChanged,
+  shoppingListItemBoughtChanged,
 } from '../../actions/shopping-list-actions.js';
 import ShoppingListItemForm from '../ShoppingList/ShoppingListItemForm';
 import { 
@@ -24,6 +23,9 @@ export default function ShoppingListPage() {
   const onQuantityChanged = (quantity) => {
     dispatch(shoppingListCandidateQuantityChanged(quantity));
   };
+  const dispatchBoughtChanged = (itemId, bought) => {
+    dispatch(shoppingListItemBoughtChanged(itemId, bought));
+  };
   return (
     <section>
       <h1>My Shopping List</h1>
@@ -39,7 +41,13 @@ export default function ShoppingListPage() {
           dispatch(shoppingListCandidateQuantityChanged(''));
         }}
       />
-      <ShoppingListItems shoppingList={state.shoppingList} />
+      <ShoppingListItems
+        shoppingList={state.shoppingList}
+        handleBoughtChangedByItemId={async (itemId, bought) => {
+          await updateShoppingItem(itemId, bought);
+          dispatchBoughtChanged(itemId, bought);
+        }}
+      />
     </section>
   );
 }
