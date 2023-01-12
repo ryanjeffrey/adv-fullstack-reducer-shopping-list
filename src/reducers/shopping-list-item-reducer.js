@@ -37,6 +37,19 @@ export const reducer = (state, action) => {
         shoppingList,
       };
     }
+    case 'shopping-list-item-deleted': {
+      const shoppingList = [...state.shoppingList];
+      const index = shoppingList.findIndex(
+        (item) => item.id === action.itemId
+      );
+      shoppingList[index] = {
+        ...shoppingList[index],
+      };
+      return {
+        ...state,
+        shoppingList,
+      };
+    }
     default:
       return state;
   }
