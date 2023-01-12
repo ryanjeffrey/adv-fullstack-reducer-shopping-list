@@ -26,3 +26,10 @@ export const shoppingListItemBoughtChanged = (itemId, bought) => {
     type: 'shopping-list-item-bought-changed',
   };
 };
+
+export const shoppingListItemDeleted = (itemId) => {
+  return {
+    itemId,
+    type: 'shopping-list-item-deleted',
+  };
+};
