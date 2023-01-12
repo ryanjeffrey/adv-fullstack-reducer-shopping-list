@@ -1,4 +1,4 @@
-export default function ShoppingListItem({ item }) {
+export default function ShoppingListItem({ item, handleBoughtChanged }) {
   return (
     <div>
       {item.item}
@@ -6,7 +6,9 @@ export default function ShoppingListItem({ item }) {
       <input
         type="checkbox"
         value={item.bought}
-        // TODO: Add handleBought function
+        onChange={() => {
+          handleBoughtChanged(!item.bought);
+        }}
       />
     </div>
   );
