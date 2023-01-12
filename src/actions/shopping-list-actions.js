@@ -18,3 +18,11 @@ export const shoppingListCandidateQuantityChanged = (quantity) => {
     type: 'shopping-list-candidate-quantity-changed',
   };
 };
+
+export const shoppingListItemBoughtChanged = (itemId, bought) => {
+  return {
+    itemId,
+    bought,
+    type: 'shopping-list-item-bought-changed',
+  };
+};
