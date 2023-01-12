@@ -34,11 +34,11 @@ export async function createShoppingListItem(item, quantity) {
   return checkError(response);
 }
 
-export async function updateShoppingItem(shoppingItemId, fields) {
+export async function updateShoppingItem(shoppingItemId, bought) {
   const response = await client
     .from('shopping-list')
     .update({
-      ...fields,
+      bought,
     })
     .eq('id', shoppingItemId)
   ;
