@@ -1,8 +1,20 @@
-export default function ShoppingListItem({ item, handleBoughtChanged }) {
+export default function ShoppingListItem({
+  item,
+  handleBoughtChanged,
+  handleItemDelete,
+}) {
   return (
     <div>
-      {item.item}
+      <button
+        id="delete-button"
+        onClick={() => {
+          handleItemDelete();
+        }}
+      >
+        ❌
+      </button>
       {item.quantity}
+      {item.item}
       <input
         type="checkbox"
         value={item.bought}
