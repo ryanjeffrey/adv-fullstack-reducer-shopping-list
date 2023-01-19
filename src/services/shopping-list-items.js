@@ -2,7 +2,7 @@ import { client, checkError } from './client.js';
 
 export async function getShoppingListItems() {
   const response = await client
-    .from('anon-shopping-list-items')
+    .from('shopping-list')
     .select(`
       *
 `)
@@ -13,7 +13,7 @@ export async function getShoppingListItems() {
 
 export async function getShoppingListItem(shoppingListItemId) {
   const response = await client
-    .from('anon-shopping-list-items')
+    .from('shopping-list')
     .select(`
       *
 `)
@@ -23,21 +23,22 @@ export async function getShoppingListItem(shoppingListItemId) {
   return checkError(response);
 }
 
-export async function createShoppingListItem(fields) {
+export async function createShoppingListItem(item, quantity) {
   const response = await client
-    .from('anon-shopping-list-items')
+    .from('shopping-list')
     .insert({
-      ...fields,
+      item,
+      quantity
     })
   ;
   return checkError(response);
 }
 
-export async function updateShoppingItem(shoppingItemId, fields) {
+export async function updateShoppingItem(shoppingItemId, bought) {
   const response = await client
-    .from('anon-shopping-list-items')
+    .from('shopping-list')
     .update({
-      ...fields,
+      bought,
     })
     .eq('id', shoppingItemId)
   ;
@@ -46,7 +47,7 @@ export async function updateShoppingItem(shoppingItemId, fields) {
 
 export async function deleteShoppingItem(shoppingItemId) {
   const response = await client
-    .from('anon-shopping-list-items')
+    .from('shopping-list')
     .delete()
     .eq('id', shoppingItemId)
   ;
